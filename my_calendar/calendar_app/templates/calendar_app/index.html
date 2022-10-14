@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendar</title>
+</head>
+<body>
+<h1>2022 year</h1>
+
+<h2>{{ current_date }}</h2>
+{% for all_month in page_obj %}
+{{ all_month.full_name|upper }}<br>
+{% endfor %}
+
+<h2>{{ page_obj.object_list.0 }}</h2>
+
+
+<style>
+   table {
+    border: 4px double #333; /* Рамка вокруг таблицы */
+    border-collapse: separate; /* Способ отображения границы */
+    width: 80%; /* Ширина таблицы */
+    border-spacing: 5px 11px; /* Расстояние между ячейками */
+   }
+   td {
+   vertical-align: bottom;
+   border: 1px solid grey;
+   }
+   th {
+   border: 1px solid black;
+   text-align: bottom;
+   height: 70px;
+   }
+   .current_day {
+   background: #3cb371; /* фон зеленого цвета */
+   }
+}
+</style>
+
+<table>
+    <tr>
+    {% for q in days_of_the_week %}
+        <th>{{ q }}</th>
+        {% endfor %}
+    </tr>
+    {% for w in m %}
+        <tr>
+            {% for d in w %}
+                <td class="{% if d == now_day and current_month == num_page_month %} current_day {% endif %}">{{ d }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+        <!--<a href="?page=1">&laquo; first</a>-->
+            <a href="?page={{ page_obj.previous_page_number }}">Предыдущий месяц</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Следующий месяц</a>
+        <!--<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>-->
+        {% endif %}
+    </span>
+</div>
+</body>
+</html>
+
