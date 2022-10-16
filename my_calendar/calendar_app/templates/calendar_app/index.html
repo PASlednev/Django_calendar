@@ -2,41 +2,69 @@
 {% load static %}
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Calendar</title>
-</head>
-<body>
-<h1>2022 year</h1>
-
-<h2>{{ current_date }}</h2>
-{% for all_month in page_obj %}
-{{ all_month.full_name|upper }}<br>
-{% endfor %}
-
-<h2>{{ page_obj.object_list.0 }}</h2>
-
 
 <style>
+   ul {
+   list-style-type: none;
+   margin: 0;
+   padding: 0;
+   overflow: hidden;
+   }
+   li {
+   float: left;
+   }
+   p {
+   display: block;
+   padding: 8px;
+   background-color: #dddddd;
+   }
+   .center p {
+
+   }
+
    table {
-    border: 4px double #333; /* Рамка вокруг таблицы */
-    border-collapse: separate; /* Способ отображения границы */
-    width: 80%; /* Ширина таблицы */
+    border: 4px double #333;
+    border-collapse: collapse /* Способ отображения границы */
     border-spacing: 5px 11px; /* Расстояние между ячейками */
+    width: 70%;
+    border: 1px solid black;
+    margin: auto;
+    line-height: 50px;
+    height: 50px;
    }
    td {
-   vertical-align: bottom;
-   border: 1px solid grey;
+   text-align: center;
+   height: 50px;
    }
    th {
-   border: 1px solid black;
    text-align: bottom;
    height: 70px;
+   border-bottom: 1px solid;
+   background-color: #808000;
    }
    .current_day {
    background: #3cb371; /* фон зеленого цвета */
    }
-}
+   tr:nth-child(even) {background-color: #87CEFA;}
+
+
+
 </style>
+<body>
+    <meta charset="UTF-8">
+    <title>Calendar</title>
+
+<div class="center">
+<ul>
+    <li><p>2022 year</p></li>
+    <li><p>{{ current_date }}</p></li>
+    <li><p>{{ page_obj.object_list.0 }}</p></li>
+</ul>
+</div>
+
+{% for all_month in page_obj %}
+{{ all_month.full_name|upper }}
+{% endfor %}
 
 <table>
     <tr>
@@ -72,5 +100,6 @@
     </span>
 </div>
 </body>
+</head>
 </html>
 
